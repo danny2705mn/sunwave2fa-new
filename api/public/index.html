@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HopeBridge 2FA</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #1c3d6e;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+    .code-box {
+      font-size: 60px;
+      font-weight: bold;
+      background: white;
+      color: #1c3d6e;
+      padding: 20px;
+      display: inline-block;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .countdown {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <img class="logo" src="https://www.hopebridgerecovery.com/wp-content/uploads/2022/05/HopeBridge-Logo-white.png" alt="HopeBridge Logo">
+  <h1>Your 2FA Code</h1>
+  <div class="code-box" id="code">------</div>
+  <div class="countdown">Refreshing in <span id="count">30</span> seconds</div>
+
+  <script>
+    async function fetchCode() {
+      const res = await fetch('/api/index');
+      const data = await res.json();
+      document.getElementById('code').textContent = data.code;
+    }
+
+    let counter = 30;
+    setInterval(() => {
+      counter--;
+      document.getElementById('count').textContent = counter;
+      if (counter === 0) {
+        fetchCode();
+        counter = 30;
+      }
+    }, 1000);
+
+    fetchCode();
+  </script>
+</body>
+</html>
