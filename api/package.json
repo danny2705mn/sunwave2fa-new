@@ -1,0 +1,7 @@
+{
+  "name": "sunwave2fa-new",
+  "version": "1.0.0",
+  "dependencies": {
+    "speakeasy": "^2.0.0"
+  }
+}
